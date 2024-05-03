@@ -67,7 +67,7 @@ def parse_args():
 
 def read_yaml_file(filename):
     with open(filename, 'r') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+        data = yaml.load(f, Loader=yaml.SafeLoader)
     return data
 
 class DummyException(Exception):
