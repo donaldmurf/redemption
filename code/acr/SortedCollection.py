@@ -3,6 +3,7 @@
 # Source: https://code.activestate.com/recipes/577197-sortedcollection/
 
 from bisect import bisect_left, bisect_right
+import secrets
 
 class SortedCollection(object):
     '''Sequence sorted by a key function.
@@ -248,12 +249,10 @@ if __name__ == '__main__':
             if item > k:
                 return item
         return -1
-
-    from random import choice
     pool = [1.5, 2, 2.0, 3, 3.0, 3.5, 4, 4.0, 4.5]
     for i in range(500):
         for n in range(6):
-            s = [choice(pool) for i in range(n)]
+            s = [secrets.choice(pool) for i in range(n)]
             sc = SortedCollection(s)
             s.sort()
             for probe in pool:
