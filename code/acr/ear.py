@@ -43,6 +43,7 @@ import argparse
 
 import parse_preproc
 from make_run_clang import get_compile_cmds_for_source_file, get_compile_dir, get_clang_cmds
+from security import safe_command
 
 class EarException(Exception):
     pass
@@ -69,7 +70,7 @@ def run_clang_parse(compile_cmd, clang_output_dir, generated=False):
     cur_dir = os.getcwd()
     os.chdir(compile_dir)
     if generated is False:
-        ast_proc = subprocess.run(clang_cmds[1], env=environ, shell=True, capture_output=True, encoding="utf-8")
+        ast_proc = safe_command.run(subprocess.run, clang_cmds[1], env=environ, shell=True, capture_output=True, encoding="utf-8")
 
     class AttrDict(dict):
         def __getattr__(self, item):

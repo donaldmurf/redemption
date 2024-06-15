@@ -45,6 +45,7 @@ import re
 import os
 #from subprocess import call run
 from subprocess import run
+from security import safe_command
 
 
 parser = argparse.ArgumentParser(
@@ -96,7 +97,7 @@ for x in data:
             my_cmd = ["python3", "/host/code/acr/test/test_runner.py","-k", testname, ymlfilename, "--create-ans"]
             testoutfilename = testname+".test.out.txt"
             with open(testoutfilename, "w") as outfile:
-                run(my_cmd, stdout=outfile)
+                safe_command.run(run, my_cmd, stdout=outfile)
             outfile.close()
 
 
