@@ -59,7 +59,7 @@ def run(base_dir, tool, alerts_file, output_file):
         # Remove absolute pathnames, everything should be relative to base_dir
         alerts2_tsv = os.path.join(temp_dir, "alerts2.tsv")
         sed_cmd = "< " + alerts1_tsv + " sed 's@\t./@\t@;' | sed 's@\t" + base_dir + "/@\t@;' > " + alerts2_tsv
-        subprocess.check_output(sed_cmd, shell=True)
+        subprocess.check_output(sed_cmd, shell=False)
 
         # Associate alerts with CERT rules
         alerts3_csv = os.path.join(temp_dir, "alerts3.csv")
@@ -76,7 +76,7 @@ SELECT * FROM Alerts, Checkers WHERE Checkers.tool=Alerts.tool AND Checkers.chec
         cmds_sql = os.path.join(temp_dir, "cmds.sql")
         with open(cmds_sql, "w") as o:
             o.write( sql_cmds)
-        subprocess.check_output("sqlite3 < " + cmds_sql, shell=True)
+        subprocess.check_output("sqlite3 < " + cmds_sql, shell=False)
 
         # Create json test data, suitable for passing to end_to_end_acr.py
         sa_alerts = list()
