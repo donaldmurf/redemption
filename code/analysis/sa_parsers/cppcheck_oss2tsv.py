@@ -33,7 +33,7 @@
 # </legal>
 
 import sys
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree
 
 
 def process_v18(root, output_file):
@@ -86,7 +86,7 @@ def process_v16(root, output_file):
 def processFile(input_file, output_file):
 
     try:
-        tree = ET.parse(input_file)
+        tree = defusedxml.ElementTree.parse(input_file)
     except:
         raise Exception("An error occured while parsing the input file. Ensure it's a cppcheck xml file.\n")
 
