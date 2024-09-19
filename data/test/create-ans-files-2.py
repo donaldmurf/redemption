@@ -43,6 +43,7 @@ import re
 import os
 import shutil
 from subprocess import run
+from security import safe_command
 
 os.environ['acr_gzip_ear_out'] = "true"
 os.environ['REPAIR_MSC12'] = "true"
@@ -91,7 +92,7 @@ for x in data:
                 testoutfilename = testname+".test.out.txt"
                 testdifffilename = testname+".diff"
                 with open(testoutfilename, "w") as outfile:
-                    run(my_cmd, stdout=outfile)
+                    safe_command.run(run, my_cmd, stdout=outfile)
                     if(ans_file_there == False):
                         copyfrom = os.path.join("/host/code/acr/test/step/", testdifffilename)
                         if(os.path.isfile(copyfrom)):
