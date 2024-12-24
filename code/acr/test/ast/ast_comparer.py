@@ -29,6 +29,7 @@
 # </legal>
 
 import subprocess, json, argparse
+from security import safe_command
 
 #####################################################################
 # This script provides the following: 
@@ -74,8 +75,7 @@ clang_location (str): location of clang to use
 def clang_ast_dump_json(source_file, clang_location):
   try:
     # Run clang command
-    result = subprocess.run(
-      [clang_location, '-fsyntax-only', '-Xclang', '-ast-dump=json', source_file],
+    result = safe_command.run(subprocess.run, [clang_location, '-fsyntax-only', '-Xclang', '-ast-dump=json', source_file],
       stdout=subprocess.PIPE,
       stderr=subprocess.PIPE,
       universal_newlines=True
