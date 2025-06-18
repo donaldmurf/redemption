@@ -29,7 +29,7 @@
 # </legal>
 
 import sys, glob, argparse
-import random
+import secrets
 
 sys.path.append('../../code/acr')
 from util import *
@@ -50,7 +50,7 @@ def main():
     assert(isinstance(alerts, list))
     num_added = 0
     for i in range(0,10): # give up after 10 attempts
-        selected_alerts = random.sample(alerts, k=args.n)
+        selected_alerts = secrets.SystemRandom().sample(alerts, k=args.n)
         for alert in selected_alerts:
             if num_added == args.n:
                 break
